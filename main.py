@@ -6,6 +6,7 @@ from storage import read_file, save_results
 input_file = "anketa.txt"
 ok_file = "ok.txt"
 errors_file = "errors.txt"
+print(f"--- Начинаем обработку файла: {input_file} ---")
 def main():
     lines = read_file(input_file)
     if lines is None:
