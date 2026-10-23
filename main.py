@@ -1,50 +1,25 @@
-
-# main.py
-from validators import parse_line
-from report import print_table
-from storage import read_file, save_results
-input_file = "anketa.txt"
-ok_file = "ok.txt"
-errors_file = "errors.txt"
-print(f"--- Начинаем обработку файла: {input_file} ---")
+from registry import Registry
 def main():
-    lines = read_file(input_file)
-    if lines is None:
+    reg = Registry()
+    if not reg.load("anketa.txt"):
+        print("Ошибка: файл anketa.txt не найден.")
         return
-    accepted = []  # Список пар (строка, словарь)
-    rejected = []  # Список кортежей (номер, строка, причина)
-    for num, line in enumerate(lines, start=1):
-        if not line.strip():
-            continue
-        # Вызываем функцию из модуля validators
-        result = parse_line(line, num)
-
-        if isinstance(result, dict):
-            accepted.append((line, result))
-        else:
-            rejected.append((num, line, result))
-
-    accepted.sort(key=lambda item: item[1]["fio"])
-    # Таблица
-    records = [rec for _, rec in accepted]
-    print_table(records)
-    # Отклонённые
-    print(f"\nотклонено строк: {len(rejected)}")
-    for num, line, reason in rejected:
-        print(f"  Cтрока {num}: {line}")
-        print(f"    Причина: {reason}")
-    # Итог
-    print(f"\nВсего строк в файле: {len(lines)}")
-    print(f"Принято: {len(accepted)} | Отклонено: {len(rejected)}")
-    # По группам
-    stat = {}
-    for _, rec in accepted:
-        stat[rec["group"]] = stat.get(rec["group"], 0) + 1
-    print("\nПо группам: ")
-    for g in sorted(stat):
-        print(f"  {g}: {stat[g]}")
-    # Сохранение (вызываем функцию из storage)
-    save_results(ok_file, errors_file, accepted, rejected)
-# Защита от запуска при импорте
+    print(f"{'№':<3}{'ФИО':<35}{'Роль':<15}{'Группа/Кафедра':<18}{'Телефон'}")
+    print("-" * 95)
+    for i, person in enumerate(reg.accepted, start=1):
+        print(f"{i:<3}{person.fio:<35}{person.role():<15}{person.extra():<18}{person.masked_phone()}")
+    if reg.rejected:
+        print(f"\nВсего отклонено: {len(reg.rejected)}")
+        for num, line, reason in reg.rejected:
+            print(f"  строка {num}: {reason}")
+    print(f"\nПринято: {len(reg)} | Отклонено: {len(reg.rejected)}")
+    print("\nПо ролям:")
+    for role, count in reg.get_stats_by_roles().items():
+        print(f"  {role}: {count}")
+    print("\nПо группам:")
+    for group, count in reg.get_stats_by_groups().items():
+        print(f"  {group}: {count}")
+    reg.save()
+    print("\nДанные сохранены в ok.txt и errors.txt")
 if __name__ == "__main__":
     main()
