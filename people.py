@@ -10,7 +10,7 @@ class Person:
         parts = fio.split()
         if len(parts) < 2:
             raise AnketaError("в ФИО меньше двух слов")
-        return " ".join(w.capitalize() for w in parts)
+        return " ".join(w.title() for w in parts)
     @staticmethod
     def check_mail(mail):
         mail = mail.strip().lower()
@@ -20,6 +20,8 @@ class Person:
         if not login or not domain or "." not in domain:
             raise AnketaError(f"неверная почта: {mail}")
         if domain.startswith(".") or domain.endswith("."):
+            raise AnketaError(f"неверная почта: {mail}")
+        if " " in mail:
             raise AnketaError(f"неверная почта: {mail}")
         return mail
     @staticmethod
@@ -42,7 +44,10 @@ class Person:
     def extra(self):
         return ""
     def __lt__(self, other):
-        return self.fio < other.fio
+            # Заменяем ё на е, чтобы сортировка работала по-русски
+            fio1 = self.fio.replace('ё', 'е').replace('Ё', 'Е')
+            fio2 = other.fio.replace('ё', 'е').replace('Ё', 'Е')
+            return fio1 < fio2
 class Student(Person):
     def __init__(self, fio, mail, phone, group):
         super().__init__(fio, mail, phone)
