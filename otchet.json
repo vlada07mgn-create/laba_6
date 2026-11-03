@@ -1,0 +1,75 @@
+{
+    "istochnik": "запасной файл",
+    "prinyato": 6,
+    "otkloneno": 4,
+    "prinjatye": [
+        {
+            "fio": "Антонова Владислава Александровна",
+            "mail": "vlada@mail.com",
+            "phone": "79642480066",
+            "rol": "студент",
+            "dopolnenie": "09с51"
+        },
+        {
+            "fio": "Завьялова Анна Константиновна",
+            "mail": "anna@mail.com",
+            "phone": "79642479111",
+            "rol": "преподаватель",
+            "dopolnenie": "Кафедра И4"
+        },
+        {
+            "fio": "Капустина Екатерина Игоревна",
+            "mail": "katya_kap@inbox.ru",
+            "phone": "79992345678",
+            "rol": "студент",
+            "dopolnenie": "09с51"
+        },
+        {
+            "fio": "Петров Иван Андреевич",
+            "mail": "petrov@mail.com",
+            "phone": "79345647723",
+            "rol": "преподаватель",
+            "dopolnenie": "Кафедра И9"
+        },
+        {
+            "fio": "Попов Алексей Александрович",
+            "mail": "popov@yandex.ru",
+            "phone": "79654902536",
+            "rol": "студент",
+            "dopolnenie": "09с51"
+        },
+        {
+            "fio": "Раевская Софья Андреевна",
+            "mail": "raevskaya@yandex.ru",
+            "phone": "79562345577",
+            "rol": "студент",
+            "dopolnenie": "09с51"
+        }
+    ],
+    "otklonennye": [
+        {
+            "nomer": 3,
+            "zapis": "s; ивАнова анна; Ivanova_mail.com; 6782340066; 09С51",
+            "prichina": "неверная почта: ivanova_mail.com"
+        },
+        {
+            "nomer": 4,
+            "zapis": "s; Салтыков Герасим Максимович; Gerasim@mail.com; +79632480123;",
+            "prichina": "пустая группа"
+        },
+        {
+            "nomer": 6,
+            "zapis": "t; кОлмАков артЁм влАдимИрович; Vladimir.ru; +7(964) 248 03 55; Кафедра И9",
+            "prichina": "неверная почта: vladimir.ru"
+        },
+        {
+            "nomer": 8,
+            "zapis": "x; пущин олег алексеевич; Oleg_alekseevich@mail.com; +79642481122; 09С51",
+            "prichina": "неизвестный тип: x"
+        }
+    ],
+    "svodka_po_rolam": {
+        "студент": 4,
+        "преподаватель": 2
+    }
+}
